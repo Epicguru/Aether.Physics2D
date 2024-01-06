@@ -267,6 +267,8 @@ namespace nkast.Aether.Physics2D.Collision
         /// </summary>
         public Vector2 UpperBound;
 
+        private Vertices vertices = new Vertices(4) {default, default, default, default};
+
         public AABB(Vector2 min, Vector2 max)
             : this(ref min, ref max)
         {
@@ -331,11 +333,10 @@ namespace nkast.Aether.Physics2D.Collision
         {
             get
             {
-                Vertices vertices = new Vertices(4);
-                vertices.Add(UpperBound);
-                vertices.Add(new Vector2(UpperBound.X, LowerBound.Y));
-                vertices.Add(LowerBound);
-                vertices.Add(new Vector2(LowerBound.X, UpperBound.Y));
+                vertices[0] = UpperBound;
+                vertices[1] = new Vector2(UpperBound.X, LowerBound.Y);
+                vertices[2] = LowerBound;
+                vertices[3] = new Vector2(LowerBound.X, UpperBound.Y);
                 return vertices;
             }
         }
