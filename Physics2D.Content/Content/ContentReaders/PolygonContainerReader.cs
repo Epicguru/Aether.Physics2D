@@ -3,33 +3,32 @@
  * Microsoft Permissive License (Ms-PL) v1.1
  */
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using nkast.Aether.Physics2D.Common;
 
-namespace nkast.Aether.Physics2D.Content
-{
-    public class PolygonContainerReader : ContentTypeReader<PolygonContainer>
-    {
-        protected override PolygonContainer Read(ContentReader input, PolygonContainer existingInstance)
-        {
-            PolygonContainer paths = existingInstance ?? new PolygonContainer();
+namespace nkast.Aether.Physics2D.Content;
 
-            int count = input.ReadInt32();
-            for (int i = 0; i < count; i++)
+public class PolygonContainerReader : ContentTypeReader<PolygonContainer>
+{
+    protected override PolygonContainer Read(ContentReader input, PolygonContainer existingInstance)
+    {
+        PolygonContainer paths = existingInstance ?? new PolygonContainer();
+
+        int count = input.ReadInt32();
+        for (int i = 0; i < count; i++)
+        {
+            string name = input.ReadString();
+            bool closed = input.ReadBoolean();
+            int vertsCount = input.ReadInt32();
+            Vertices verts = new Vertices();
+            for (int j = 0; j < vertsCount; j++)
             {
-                string name = input.ReadString();
-                bool closed = input.ReadBoolean();
-                int vertsCount = input.ReadInt32();
-                Vertices verts = new Vertices();
-                for (int j = 0; j < vertsCount; j++)
-                {
-                    verts.Add(input.ReadVector2());
-                }
-                paths[name] = new Polygon(verts, closed);
+                verts.Add(input.ReadVector2());
             }
 
-            return paths;
+            paths[name] = new Polygon(verts, closed);
         }
+
+        return paths;
     }
 }

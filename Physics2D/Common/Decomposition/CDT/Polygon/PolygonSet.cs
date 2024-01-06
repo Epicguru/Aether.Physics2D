@@ -42,29 +42,25 @@
 
 using System.Collections.Generic;
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Polygon
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Polygon;
+
+internal class PolygonSet
 {
-    internal class PolygonSet
+    public IEnumerable<Polygon> Polygons => _polygons;
+
+    protected List<Polygon> _polygons = new List<Polygon>();
+
+    public PolygonSet()
     {
-        protected List<Polygon> _polygons = new List<Polygon>();
+    }
 
-        public PolygonSet()
-        {
-        }
+    public PolygonSet(Polygon poly)
+    {
+        _polygons.Add(poly);
+    }
 
-        public PolygonSet(Polygon poly)
-        {
-            _polygons.Add(poly);
-        }
-
-        public IEnumerable<Polygon> Polygons
-        {
-            get { return _polygons; }
-        }
-
-        public void Add(Polygon p)
-        {
-            _polygons.Add(p);
-        }
+    public void Add(Polygon p)
+    {
+        _polygons.Add(p);
     }
 }

@@ -36,13 +36,12 @@
 
 using System;
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay.Sweep
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay.Sweep;
+
+internal class PointOnEdgeException : NotImplementedException
 {
-    internal class PointOnEdgeException : NotImplementedException
+    public PointOnEdgeException(string message)
+        : base(message)
     {
-        public PointOnEdgeException(string message)
-            : base(message)
-        {
-        }
     }
 }

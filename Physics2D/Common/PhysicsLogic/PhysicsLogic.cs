@@ -5,25 +5,23 @@
 
 using nkast.Aether.Physics2D.Dynamics;
 
-namespace nkast.Aether.Physics2D.Common.PhysicsLogic
+namespace nkast.Aether.Physics2D.Common.PhysicsLogic;
+
+public abstract class PhysicsLogic : FilterData
 {
-    public abstract class PhysicsLogic : FilterData
+    public World World { get; internal set; }
+    public ControllerCategory ControllerCategory = ControllerCategory.Cat01;
+
+    public PhysicsLogic(World world)
     {
-        public ControllerCategory ControllerCategory = ControllerCategory.Cat01;
+        World = world;
+    }
 
-        public World World { get; internal set; }
+    public override bool IsActiveOn(Body body)
+    {
+        if (body.ControllerFilter.IsControllerIgnored(ControllerCategory))
+            return false;
 
-        public PhysicsLogic(World world)
-        {
-            World = world;
-        }
-        public override bool IsActiveOn(Body body)
-        {
-            if (body.ControllerFilter.IsControllerIgnored(ControllerCategory))
-                return false;
-
-            return base.IsActiveOn(body);
-        }
-        
+        return base.IsActiveOn(body);
     }
 }

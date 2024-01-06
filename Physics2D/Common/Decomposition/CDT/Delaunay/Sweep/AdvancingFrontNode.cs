@@ -40,30 +40,23 @@
 // Future possibilities
 //   Comments!
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay.Sweep
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay.Sweep;
+
+internal class AdvancingFrontNode
 {
-    internal class AdvancingFrontNode
+    public bool HasNext => Next != null;
+
+    public bool HasPrev => Prev != null;
+
+    public AdvancingFrontNode Next;
+    public TriangulationPoint Point;
+    public AdvancingFrontNode Prev;
+    public DelaunayTriangle Triangle;
+    public double Value;
+
+    public AdvancingFrontNode(TriangulationPoint point)
     {
-        public AdvancingFrontNode Next;
-        public TriangulationPoint Point;
-        public AdvancingFrontNode Prev;
-        public DelaunayTriangle Triangle;
-        public double Value;
-
-        public AdvancingFrontNode(TriangulationPoint point)
-        {
-            Point = point;
-            Value = point.X;
-        }
-
-        public bool HasNext
-        {
-            get { return Next != null; }
-        }
-
-        public bool HasPrev
-        {
-            get { return Prev != null; }
-        }
+        Point = point;
+        Value = point.X;
     }
 }

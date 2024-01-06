@@ -4,13 +4,9 @@
  */
 
 using System.Collections.Generic;
-using nkast.Aether.Physics2D.Collision.Shapes;
-using nkast.Aether.Physics2D.Dynamics;
 
-namespace nkast.Aether.Physics2D.Content
+namespace nkast.Aether.Physics2D.Content;
+
+public class BodyContainer : Dictionary<string, BodyTemplate>
 {
-    public class BodyContainer : Dictionary<string, BodyTemplate> 
-    {
-
-    }
 }

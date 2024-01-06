@@ -35,49 +35,46 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay;
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT;
+
+internal abstract class TriangulationContext
 {
-    internal abstract class TriangulationContext
+    public TriangulationMode TriangulationMode { get; protected set; }
+    public Triangulatable Triangulatable { get; private set; }
+
+    public bool WaitUntilNotified { get; }
+    public bool Terminated { get; set; }
+
+    public int StepCount { get; private set; }
+    public readonly List<TriangulationPoint> Points = new List<TriangulationPoint>(200);
+    public readonly List<DelaunayTriangle> Triangles = new List<DelaunayTriangle>();
+    private int _stepTime = -1;
+
+    public TriangulationContext()
     {
-        public readonly List<TriangulationPoint> Points = new List<TriangulationPoint>(200);
-        public readonly List<DelaunayTriangle> Triangles = new List<DelaunayTriangle>();
-        private int _stepTime = -1;
+        Terminated = false;
+    }
 
-        public TriangulationContext()
-        {
-            Terminated = false;
-        }
+    public void Done()
+    {
+        StepCount++;
+    }
 
-        public TriangulationMode TriangulationMode { get; protected set; }
-        public Triangulatable Triangulatable { get; private set; }
+    public virtual void PrepareTriangulation(Triangulatable t)
+    {
+        Triangulatable = t;
+        TriangulationMode = t.TriangulationMode;
+        t.PrepareTriangulation(this);
+    }
 
-        public bool WaitUntilNotified { get; private set; }
-        public bool Terminated { get; set; }
+    public abstract TriangulationConstraint NewConstraint(TriangulationPoint a, TriangulationPoint b);
 
-        public int StepCount { get; private set; }
-
-        public void Done()
-        {
-            StepCount++;
-        }
-
-        public virtual void PrepareTriangulation(Triangulatable t)
-        {
-            Triangulatable = t;
-            TriangulationMode = t.TriangulationMode;
-            t.PrepareTriangulation(this);
-        }
-
-        public abstract TriangulationConstraint NewConstraint(TriangulationPoint a, TriangulationPoint b);
-
-        public virtual void Clear()
-        {
-            Points.Clear();
-            Terminated = false;
-            StepCount = 0;
-        }
+    public virtual void Clear()
+    {
+        Points.Clear();
+        Terminated = false;
+        StepCount = 0;
     }
 }

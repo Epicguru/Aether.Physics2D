@@ -3,31 +3,25 @@
  * Microsoft Permissive License (Ms-PL) v1.1
  */
 
-using System;
 using nkast.Aether.Physics2D.Common.PhysicsLogic;
 using nkast.Aether.Physics2D.Dynamics;
 
-namespace nkast.Aether.Physics2D.Controllers
+namespace nkast.Aether.Physics2D.Controllers;
+
+public abstract class Controller : FilterData
 {
-    public abstract class Controller : FilterData
+    public World World { get; internal set; }
+    public ControllerCategory ControllerCategory = ControllerCategory.Cat01;
+
+    public bool Enabled = true;
+
+    public override bool IsActiveOn(Body body)
     {
-        public ControllerCategory ControllerCategory = ControllerCategory.Cat01;
+        if (body.ControllerFilter.IsControllerIgnored(ControllerCategory))
+            return false;
 
-        public bool Enabled = true;
-        public World World { get; internal set; }
-
-        public Controller()
-        {
-        }
-
-        public override bool IsActiveOn(Body body)
-        {
-            if (body.ControllerFilter.IsControllerIgnored(ControllerCategory))
-                return false;
-
-            return base.IsActiveOn(body);
-        }
-
-        public abstract void Update(float dt);
+        return base.IsActiveOn(body);
     }
+
+    public abstract void Update(float dt);
 }

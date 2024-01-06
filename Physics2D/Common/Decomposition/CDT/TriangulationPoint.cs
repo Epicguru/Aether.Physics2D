@@ -37,51 +37,47 @@
 using System.Collections.Generic;
 using nkast.Aether.Physics2D.Common.Decomposition.CDT.Delaunay.Sweep;
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT;
+
+internal class TriangulationPoint
 {
-    internal class TriangulationPoint
+    public bool HasEdges => Edges != null;
+
+    public List<DTSweepConstraint> Edges { get; private set; }
+
+    public float Xf
     {
-        // List of edges this point constitutes an upper ending point (CDT)
+        get => (float) X;
+        set => X = value;
+    }
 
-        public double X, Y;
+    public float Yf
+    {
+        get => (float) Y;
+        set => Y = value;
+    }
+    // List of edges this point constitutes an upper ending point (CDT)
 
-        public TriangulationPoint(double x, double y)
+    public double X, Y;
+
+    public TriangulationPoint(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public override string ToString()
+    {
+        return "[" + X + "," + Y + "]";
+    }
+
+    public void AddEdge(DTSweepConstraint e)
+    {
+        if (Edges == null)
         {
-            X = x;
-            Y = y;
+            Edges = new List<DTSweepConstraint>();
         }
 
-        public List<DTSweepConstraint> Edges { get; private set; }
-
-        public float Xf
-        {
-            get { return (float) X; }
-            set { X = value; }
-        }
-
-        public float Yf
-        {
-            get { return (float) Y; }
-            set { Y = value; }
-        }
-
-        public bool HasEdges
-        {
-            get { return Edges != null; }
-        }
-
-        public override string ToString()
-        {
-            return "[" + X + "," + Y + "]";
-        }
-
-        public void AddEdge(DTSweepConstraint e)
-        {
-            if (Edges == null)
-            {
-                Edges = new List<DTSweepConstraint>();
-            }
-            Edges.Add(e);
-        }
+        Edges.Add(e);
     }
 }

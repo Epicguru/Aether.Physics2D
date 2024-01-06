@@ -4,40 +4,37 @@
  */
 
 using System.Collections.Generic;
-using nkast.Aether.Physics2D.Collision.Shapes;
 using nkast.Aether.Physics2D.Dynamics;
 
-namespace nkast.Aether.Physics2D.Content
+namespace nkast.Aether.Physics2D.Content;
+
+public class BodyTemplate
 {
-    public class BodyTemplate
+    public List<FixtureTemplate> Fixtures;
+    public float Mass;
+    public BodyType BodyType;
+
+    public BodyTemplate()
     {
-        public List<FixtureTemplate> Fixtures;
-        public float Mass;
-        public BodyType BodyType;
+        Fixtures = new List<FixtureTemplate>();
+    }
 
-        public BodyTemplate()
+    public Body Create(World world)
+    {
+        Body body = world.CreateBody();
+        body.BodyType = BodyType;
+
+        foreach (FixtureTemplate fixtureTemplate in Fixtures)
         {
-            Fixtures = new List<FixtureTemplate>();
+            Fixture fixture = body.CreateFixture(fixtureTemplate.Shape);
+            fixture.Tag = fixtureTemplate.Name;
+            fixture.Restitution = fixtureTemplate.Restitution;
+            fixture.Friction = fixtureTemplate.Friction;
         }
 
-        public Body Create(World world)
-        {
-            Body body = world.CreateBody();
-            body.BodyType = BodyType;
+        if (Mass > 0f)
+            body.Mass = Mass;
 
-            foreach (FixtureTemplate fixtureTemplate in Fixtures)
-            {
-                Fixture fixture = body.CreateFixture(fixtureTemplate.Shape);
-                fixture.Tag = fixtureTemplate.Name;
-                fixture.Restitution = fixtureTemplate.Restitution;
-                fixture.Friction = fixtureTemplate.Friction;
-            }
-
-            if (Mass > 0f)
-                body.Mass = Mass;
-
-            return body;
-        }
-
+        return body;
     }
 }

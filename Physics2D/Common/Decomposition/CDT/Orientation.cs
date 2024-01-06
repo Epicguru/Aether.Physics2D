@@ -34,12 +34,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace nkast.Aether.Physics2D.Common.Decomposition.CDT
+namespace nkast.Aether.Physics2D.Common.Decomposition.CDT;
+
+internal enum Orientation
 {
-    internal enum Orientation
-    {
-        CW,
-        CCW,
-        Collinear
-    }
+    CW,
+    CCW,
+    Collinear
 }

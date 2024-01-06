@@ -23,25 +23,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Content\ContentReaders\BodyContainerReader.cs" />
-    <Compile Include="Content\ContentReaders\PolygonContainerReader.cs" />
-    <Compile Include="Content\BodyContainer.cs" />
-    <Compile Include="Content\BodyTemplate.cs" />
-    <Compile Include="Content\FixtureTemplate.cs" />
-    <Compile Include="Content\Polygon.cs" />
-    <Compile Include="Content\PolygonContainer.cs" />
+    <Compile Include="Content\ContentReaders\BodyContainerReader.cs"/>
+    <Compile Include="Content\ContentReaders\PolygonContainerReader.cs"/>
+    <Compile Include="Content\BodyContainer.cs"/>
+    <Compile Include="Content\BodyTemplate.cs"/>
+    <Compile Include="Content\FixtureTemplate.cs"/>
+    <Compile Include="Content\Polygon.cs"/>
+    <Compile Include="Content\PolygonContainer.cs"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.NETSTANDARD.MG.cs" />
+    <Compile Include="Properties\AssemblyInfo.NETSTANDARD.MG.cs"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Physics2D\Aether.Physics2D.NETSTANDARD2_0.MG.csproj" />
+    <ProjectReference Include="..\Physics2D\Aether.Physics2D.NETSTANDARD2_0.MG.csproj"/>
   </ItemGroup>
 
 </Project>
